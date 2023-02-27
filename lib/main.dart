@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => LoginScreen(),
         '/dashboard': (context) => Dashboard(),
+        '/settings': (context) => ItemCard(),
       },
     );
   }

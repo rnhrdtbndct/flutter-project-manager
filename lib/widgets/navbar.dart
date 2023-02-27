@@ -1,4 +1,3 @@
-import 'package:benedictoflutter/widgets/itemCard.dart';
 import 'package:flutter/material.dart';
 import 'package:sidebarx/sidebarx.dart';
 
@@ -148,15 +147,12 @@ class ExampleSidebarX extends StatelessWidget {
         SidebarXItem(
           icon: Icons.home,
           label: 'Dashboard',
-          onTap: () {
-            debugPrint('Home');
-          },
         ),
-        const SidebarXItem(
+        SidebarXItem(
           icon: Icons.settings,
           label: 'Settings',
         ),
-        const SidebarXItem(
+        SidebarXItem(
           icon: Icons.people,
           label: 'Profile',
         ),
@@ -184,7 +180,7 @@ class _ScreensExample extends StatelessWidget {
           case 0:
             return Text('Dashboard');
           case 1:
-            return ItemCard();
+            return Text('Settings');
           case 2:
             return Text('Profile');
           default:
