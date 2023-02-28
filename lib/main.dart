@@ -1,5 +1,7 @@
 import 'package:benedictoflutter/screens/dashboard.dart';
 import 'package:benedictoflutter/screens/login.dart';
+import 'package:benedictoflutter/screens/profile.dart';
+import 'package:benedictoflutter/screens/settings.dart';
 import 'package:benedictoflutter/widgets/itemCard.dart';
 import 'package:benedictoflutter/widgets/navbar.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +22,8 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => LoginScreen(),
         '/dashboard': (context) => Dashboard(),
-        '/settings': (context) => ItemCard(),
+        '/settings': (context) => Settings(),
+        '/profile': (context) => Profile(),
       },
     );
   }

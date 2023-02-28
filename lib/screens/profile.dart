@@ -1,8 +1,11 @@
+import 'package:benedictoflutter/widgets/itemCard.dart';
 import 'package:benedictoflutter/widgets/navbar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/src/widgets/placeholder.dart';
 
-class Dashboard extends StatelessWidget {
-  const Dashboard({super.key});
+class Profile extends StatelessWidget {
+  const Profile({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -10,12 +13,12 @@ class Dashboard extends StatelessWidget {
       body: Row(
         children: [
           Container(
-            child: NavBar(index: 0),),
+            child: NavBar(index: 2),),
           Expanded(
             child: Container(
               alignment: Alignment.center,
               height: MediaQuery.of(context).size.height,
-              child: Text('Dashboard'),
+              child: ItemCard(),
             ),
           )
         ],
