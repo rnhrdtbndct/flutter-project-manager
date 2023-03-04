@@ -1,9 +1,8 @@
 import 'package:benedictoflutter/screens/dashboard.dart';
 import 'package:benedictoflutter/screens/login.dart';
 import 'package:benedictoflutter/screens/profile.dart';
-import 'package:benedictoflutter/screens/settings.dart';
-import 'package:benedictoflutter/widgets/itemCard.dart';
-import 'package:benedictoflutter/widgets/navbar.dart';
+import 'package:benedictoflutter/screens/members.dart';
+import 'package:benedictoflutter/screens/signup.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -17,13 +16,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Exam',
+      title: 'Ateneo de Davao University',
       debugShowCheckedModeBanner: false,
       routes: {
         '/': (context) => LoginScreen(),
-        '/dashboard': (context) => Dashboard(),
-        '/settings': (context) => Settings(),
-        '/profile': (context) => Profile(),
+        '/dashboard': (context) => DashboardScreen(),
+        '/members': (context) => MembersScreen(),
+        '/profile': (context) => ProfileScreen(),
+        '/signup': (context) => SignUpScreen(),
       },
     );
   }

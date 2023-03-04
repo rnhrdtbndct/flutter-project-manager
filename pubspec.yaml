@@ -77,6 +77,7 @@ flutter:
     - assets/images/addu-martin-hall.jpg
     - assets/images/addu-roxas.jpg
     - assets/images/google-logo.png
+    - assets/images/rein-profile.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

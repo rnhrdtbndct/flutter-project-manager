@@ -1,11 +1,13 @@
-import 'package:benedictoflutter/screens/settings.dart';
+import 'package:benedictoflutter/screens/members.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:sidebarx/sidebarx.dart';
 
-
 class NavBar extends StatelessWidget {
-  const NavBar({Key? key, required this.index,});
+  const NavBar({
+    Key? key,
+    required this.index,
+  });
 
   final index;
 
@@ -20,7 +22,7 @@ class NavBar extends StatelessWidget {
           color: canvasColor,
           borderRadius: BorderRadius.circular(20),
         ),
-        hoverColor: scaffoldBackgroundColor,
+        hoverColor: canvasColor,
         textStyle: TextStyle(color: Colors.white.withOpacity(0.7)),
         selectedTextStyle: const TextStyle(color: Colors.white),
         itemTextPadding: const EdgeInsets.only(left: 30),
@@ -68,30 +70,41 @@ class NavBar extends StatelessWidget {
           ),
         );
       },
-      footerBuilder: (context, extended) {
-        return SizedBox(
-          height: 100,
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Image.asset('assets/images/arisen-logo.png'),
-          ),
-        );
-      },
       items: [
         SidebarXItem(
           icon: Icons.home,
           label: 'Dashboard',
-          onTap: () => Navigator.pushNamedAndRemoveUntil(context, '/dashboard', ModalRoute.withName('/')),
+          onTap: () => Navigator.pushNamedAndRemoveUntil(
+              context, '/dashboard', ModalRoute.withName('/')),
         ),
         SidebarXItem(
-          icon: Icons.settings,
-          label: 'Settings',
-          onTap: () => Navigator.pushNamedAndRemoveUntil(context, '/settings', ModalRoute.withName('/'),),
+          icon: Icons.people,
+          label: 'Members',
+          onTap: () => Navigator.pushNamedAndRemoveUntil(
+            context,
+            '/members',
+            ModalRoute.withName('/'),
+          ),
         ),
         SidebarXItem(
           icon: Icons.person,
           label: 'Profile',
-          onTap: () => Navigator.pushNamedAndRemoveUntil(context, '/profile', ModalRoute.withName('/'),),
+          onTap: () => Navigator.pushNamedAndRemoveUntil(
+            context,
+            '/profile',
+            ModalRoute.withName('/'),
+          ),
+        ),
+      ],
+      footerItems: [
+        SidebarXItem(
+          icon: Icons.door_back_door_sharp,
+          label: 'Logout',
+          onTap: () => Navigator.pushNamedAndRemoveUntil(
+            context,
+            '/',
+            ModalRoute.withName('/'),
+          ),
         ),
       ],
     );
@@ -103,7 +116,7 @@ String _getTitleByIndex(int index) {
     case 0:
       return 'Dashboard';
     case 1:
-      return 'Settings';
+      return 'Members';
     case 2:
       return 'Profile';
     default:
