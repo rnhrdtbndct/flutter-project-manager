@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "516400505005",
+    "project_id": "project-outright",
+    "storage_bucket": "project-outright.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:516400505005:android:1be2d6b10d300359d46624",
+        "android_client_info": {
+          "package_name": "com.example.benedictoflutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "516400505005-dlnmp584fpk2c35mgts19f2e485v5hfl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCTeAB8BG_EHLrDlgJ4XH-AfR_5ENseq0k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "516400505005-dlnmp584fpk2c35mgts19f2e485v5hfl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

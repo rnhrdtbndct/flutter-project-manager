@@ -1,5 +1,7 @@
 import 'package:benedictoflutter/widgets/navbar.dart';
+import 'package:benedictoflutter/widgets/user_card.dart';
 import 'package:flutter/material.dart';
+import 'package:responsive_grid_list/responsive_grid_list.dart';
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({super.key});
@@ -14,11 +16,11 @@ class DashboardScreen extends StatelessWidget {
         ),
         Expanded(
           child: Container(
-            alignment: Alignment.center,
-            height: MediaQuery.of(context).size.height,
-            child: Text('Dashboard'),
-          ),
-        )
+              alignment: Alignment.center,
+              height: MediaQuery.of(context).size.height,
+              child: Text('Dashboard')) //Text('Dashboard')
+          ,
+        ),
       ],
     ));
   }
