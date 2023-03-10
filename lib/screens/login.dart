@@ -1,3 +1,7 @@
+import 'package:benedictoflutter/screens/dashboard.dart';
+import 'package:benedictoflutter/screens/profile.dart';
+import 'package:benedictoflutter/services/auth_services.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +28,8 @@ class _MyWidgetState extends State<LoginScreen> {
     'assets/images/addu-jubilee.jpg',
     'assets/images/addu-martin-hall.jpg',
   ];
+  String email = '';
+  String password = '';
 
   @override
   Widget build(BuildContext context) {
@@ -105,18 +111,24 @@ class _MyWidgetState extends State<LoginScreen> {
                               padding: EdgeInsets.only(
                                 top: 5,
                               ),
-                              child: TextField(
-                                style: GoogleFonts.roboto(
-                                    textStyle: TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.bold,
-                                        color: Color(0xFF003A6C))),
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(5.0)),
-                                  contentPadding:
-                                      EdgeInsets.symmetric(vertical: 5),
-                                  prefixIcon: Icon(Icons.mail_outline),
+                              child: Form(
+                                child: TextFormField(
+                                  onChanged: (value) {
+                                    setState(() => email = value);
+                                  },
+                                  style: GoogleFonts.roboto(
+                                      textStyle: TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.bold,
+                                          color: Color(0xFF003A6C))),
+                                  decoration: InputDecoration(
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(5.0)),
+                                    contentPadding:
+                                        EdgeInsets.symmetric(vertical: 5),
+                                    prefixIcon: Icon(Icons.mail_outline),
+                                  ),
                                 ),
                               ),
                             ),
@@ -138,53 +150,49 @@ class _MyWidgetState extends State<LoginScreen> {
                             Container(
                               width: MediaQuery.of(context).size.width,
                               padding: EdgeInsets.only(top: 5),
-                              child: TextField(
-                                obscureText: _obscureText,
-                                style: GoogleFonts.roboto(
-                                    textStyle: TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.bold,
-                                        color: Color(0xFF003A6C))),
-                                decoration: InputDecoration(
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(5.0)),
-                                  contentPadding:
-                                      EdgeInsets.symmetric(vertical: 5),
-                                  prefixIcon: Icon(Icons.lock),
-                                  suffixIcon: IconButton(
-                                      onPressed: () {
-                                        setState(() {
-                                          if (_obscureText == false) {
-                                            _obscureText = true;
-                                          } else {
-                                            _obscureText = false;
-                                          }
-                                        });
-                                      },
-                                      icon:
-                                          Icon(Icons.remove_red_eye_outlined)),
+                              child: Form(
+                                child: TextFormField(
+                                  onChanged: (value) {
+                                    setState(() => password = value);
+                                  },
+                                  obscureText: _obscureText,
+                                  style: GoogleFonts.roboto(
+                                      textStyle: TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.bold,
+                                          color: Color(0xFF003A6C))),
+                                  decoration: InputDecoration(
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(5.0)),
+                                    contentPadding:
+                                        EdgeInsets.symmetric(vertical: 5),
+                                    prefixIcon: Icon(Icons.lock),
+                                    suffixIcon: IconButton(
+                                        onPressed: () {
+                                          setState(() {
+                                            if (_obscureText == false) {
+                                              _obscureText = true;
+                                            } else {
+                                              _obscureText = false;
+                                            }
+                                          });
+                                        },
+                                        icon: Icon(
+                                            Icons.remove_red_eye_outlined)),
+                                  ),
                                 ),
                               ),
                             ),
                             Container(
                               child: Container(
                                 padding: EdgeInsets.only(top: 15),
-                                child: Row(
-                                  children: [
-                                    Container(
-                                        width: 175,
-                                        height: 55,
-                                        padding: EdgeInsets.only(
-                                            top: 10, bottom: 10, right: 10),
-                                        child: registerButton("/signup")),
-                                    Container(
-                                        width: 175,
-                                        height: 55,
-                                        padding: EdgeInsets.only(
-                                            top: 10, bottom: 10, left: 10),
-                                        child: loginButton()),
-                                  ],
-                                ),
+                                child: Container(
+                                    width: 350,
+                                    height: 55,
+                                    padding:
+                                        EdgeInsets.only(top: 10, bottom: 10),
+                                    child: loginButton()),
                               ),
                             ),
                             Center(
@@ -243,9 +251,11 @@ class _MyWidgetState extends State<LoginScreen> {
                               height: 60,
                               padding: EdgeInsets.only(top: 10, bottom: 10),
                               child: ElevatedButton.icon(
-                                onPressed: () {
-                                  Navigator.pushNamedAndRemoveUntil(context,
-                                      '/dashboard', ModalRoute.withName('/'));
+                                onPressed: () async {
+                                  await signInWithGoogle().then((value) {
+                                    Navigator.pushNamedAndRemoveUntil(context,
+                                        '/dashboard', ModalRoute.withName('/'));
+                                  }).onError((error, stackTrace) => null);
                                 },
                                 label: Text(
                                   'Sign in with Google',
@@ -307,7 +317,22 @@ class _MyWidgetState extends State<LoginScreen> {
 
   ElevatedButton loginButton() {
     return ElevatedButton(
-      onPressed: () {},
+      onPressed: () async {
+        await signIn(email, password);
+        if (FirebaseAuth.instance.currentUser != null) {
+          Navigator.pushNamedAndRemoveUntil(
+            context,
+            '/dashboard',
+            ModalRoute.withName('/'),
+          );
+        } else {
+          Navigator.pushNamedAndRemoveUntil(
+            context,
+            '/',
+            ModalRoute.withName('/'),
+          );
+        }
+      },
       style: ElevatedButton.styleFrom(
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),

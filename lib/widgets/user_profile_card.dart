@@ -4,9 +4,12 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 // ignore: camel_case_types
 class UserProfileCard extends StatelessWidget {
-  const UserProfileCard({
-    super.key,
-  });
+  const UserProfileCard(
+      {super.key, required this.photoURL, this.userFullName, this.userEmail});
+
+  final photoURL;
+  final userFullName;
+  final userEmail;
 
   @override
   Widget build(BuildContext context) {
@@ -52,8 +55,7 @@ class UserProfileCard extends StatelessWidget {
                                   shape: BoxShape.circle,
                                   border: Border.all(color: Color(0xff8B8FC9)),
                                   image: DecorationImage(
-                                    image: AssetImage(
-                                        'assets/images/rein-profile.jpg'),
+                                    image: NetworkImage(photoURL),
                                     fit: BoxFit.contain,
                                   ),
                                 ),
@@ -70,7 +72,7 @@ class UserProfileCard extends StatelessWidget {
                                       height: 50,
                                       child: Center(
                                         child: Text(
-                                          'Reinhardt Benedicto',
+                                          userFullName,
                                           style: TextStyle(
                                             fontSize: 25,
                                             color: Colors.white,
@@ -87,7 +89,7 @@ class UserProfileCard extends StatelessWidget {
                                     height: 25,
                                     alignment: Alignment.center,
                                     child: Text(
-                                      '@rnhrdtbndct',
+                                      userEmail,
                                       style: TextStyle(
                                         fontSize: 15,
                                         color: Color(0XFF01AFEF),

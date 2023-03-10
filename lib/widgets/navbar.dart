@@ -1,4 +1,6 @@
 import 'package:benedictoflutter/screens/members.dart';
+import 'package:benedictoflutter/services/auth_services.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:sidebarx/sidebarx.dart';
@@ -98,14 +100,15 @@ class NavBar extends StatelessWidget {
       ],
       footerItems: [
         SidebarXItem(
-          icon: Icons.door_back_door_sharp,
-          label: 'Logout',
-          onTap: () => Navigator.pushNamedAndRemoveUntil(
-            context,
-            '/',
-            ModalRoute.withName('/'),
-          ),
-        ),
+            icon: Icons.door_back_door_sharp,
+            label: 'Logout',
+            onTap: () async => await signOut().then(
+                  (value) => Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    '/',
+                    ModalRoute.withName('/'),
+                  ),
+                )),
       ],
     );
   }
