@@ -98,20 +98,20 @@ class UserProfileCard extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                  Container(
-                                    width: 360,
-                                    height: 25,
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      'Davao City',
-                                      style: TextStyle(
-                                        fontSize: 15,
-                                        color: Colors.white,
-                                        fontFamily: 'MPlus',
-                                        fontWeight: FontWeight.w300,
-                                      ),
-                                    ),
-                                  ),
+                                  // Container(
+                                  //   width: 360,
+                                  //   height: 25,
+                                  //   alignment: Alignment.center,
+                                  //   child: Text(
+                                  //     'Davao City',
+                                  //     style: TextStyle(
+                                  //       fontSize: 15,
+                                  //       color: Colors.white,
+                                  //       fontFamily: 'MPlus',
+                                  //       fontWeight: FontWeight.w300,
+                                  //     ),
+                                  //   ),
+                                  // ),
                                 ],
                               ),
                             ),

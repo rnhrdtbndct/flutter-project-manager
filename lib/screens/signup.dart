@@ -1,3 +1,5 @@
+import 'package:benedictoflutter/services/auth_services.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -10,8 +12,14 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _MyWidgetState extends State<SignUpScreen> {
-  bool _obscureText1 = false;
-  bool _obscureText2 = false;
+  bool _obscureText1 = true;
+  bool _obscureText2 = true;
+  String firstName = '';
+  String lastName = '';
+  String emailAdd = '';
+  String profilePictre = '';
+  String password = '';
+  String confirmPassword = '';
 
   @override
   Widget build(BuildContext context) {
@@ -46,23 +54,137 @@ class _MyWidgetState extends State<SignUpScreen> {
                     textAlign: TextAlign.center,
                   )),
                   title("Firstname"),
-                  inputBox(context, "text"),
+                  TextFormField(
+                    onChanged: (value) {
+                      setState(() => firstName = value);
+                    },
+                    style: GoogleFonts.roboto(
+                        textStyle: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black)),
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5.0)),
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                    ),
+                  ),
                   title("Lastname"),
-                  inputBox(context, "text"),
+                  TextFormField(
+                    onChanged: (value) {
+                      setState(() => lastName = value);
+                    },
+                    style: GoogleFonts.roboto(
+                        textStyle: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black)),
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5.0)),
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                    ),
+                  ),
+                  title("Photo URL"),
+                  TextFormField(
+                    onChanged: (value) {
+                      setState(() => profilePictre = value);
+                    },
+                    style: GoogleFonts.roboto(
+                        textStyle: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black)),
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5.0)),
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                    ),
+                  ),
                   title("Email Address"),
-                  inputBox(context, "text"),
-                  title("Username"),
-                  inputBox(context, "text"),
+                  TextFormField(
+                    onChanged: (value) {
+                      setState(() => emailAdd = value);
+                    },
+                    style: GoogleFonts.roboto(
+                        textStyle: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black)),
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5.0)),
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                    ),
+                  ),
                   title("Password"),
-                  inputBox(context, "password"),
+                  TextFormField(
+                    onChanged: (value) {
+                      setState(() => password = value);
+                    },
+                    obscureText: _obscureText1,
+                    style: GoogleFonts.roboto(
+                        textStyle: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black)),
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5.0)),
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                      suffixIcon: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              if (_obscureText1 == true) {
+                                _obscureText1 = false;
+                              } else {
+                                _obscureText1 = true;
+                              }
+                            });
+                          },
+                          icon: Icon(Icons.remove_red_eye_outlined)),
+                    ),
+                  ),
                   title("Confirm Password"),
-                  inputBox(context, "password2"),
+                  TextFormField(
+                    onChanged: (value) {
+                      setState(() => confirmPassword = value);
+                    },
+                    obscureText: _obscureText2,
+                    style: GoogleFonts.roboto(
+                        textStyle: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black)),
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5.0)),
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                      suffixIcon: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              if (_obscureText2 == true) {
+                                _obscureText2 = false;
+                              } else {
+                                _obscureText2 = false;
+                              }
+                            });
+                          },
+                          icon: Icon(Icons.remove_red_eye_outlined)),
+                    ),
+                  ),
                   Container(
                     width: MediaQuery.of(context).size.width,
                     height: 50,
                     margin: EdgeInsets.only(top: 20),
                     padding: EdgeInsets.all(5),
-                    child: registerButton("/"),
+                    child: registerButton(),
                   ),
                   Container(
                     width: MediaQuery.of(context).size.width,
@@ -77,98 +199,6 @@ class _MyWidgetState extends State<SignUpScreen> {
         ),
       ),
     );
-  }
-
-  Container inputBox(BuildContext context, String title) {
-    if (title == "password") {
-      return Container(
-        alignment: Alignment.centerLeft,
-        width: MediaQuery.of(context).size.width,
-        height: 50,
-        padding: EdgeInsets.only(
-          top: 5,
-        ),
-        child: TextField(
-          obscureText: _obscureText1,
-          style: GoogleFonts.roboto(
-              textStyle: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black)),
-          decoration: InputDecoration(
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(5.0)),
-            contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-            suffixIcon: IconButton(
-                onPressed: () {
-                  setState(() {
-                    if (_obscureText1 == false) {
-                      _obscureText1 = true;
-                    } else {
-                      _obscureText1 = false;
-                    }
-                  });
-                },
-                icon: Icon(Icons.remove_red_eye_outlined)),
-          ),
-        ),
-      );
-    } else if (title == "password2") {
-      return Container(
-        alignment: Alignment.centerLeft,
-        width: MediaQuery.of(context).size.width,
-        height: 50,
-        padding: EdgeInsets.only(
-          top: 5,
-        ),
-        child: TextField(
-          obscureText: _obscureText2,
-          style: GoogleFonts.roboto(
-              textStyle: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black)),
-          decoration: InputDecoration(
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(5.0)),
-            contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-            suffixIcon: IconButton(
-                onPressed: () {
-                  setState(() {
-                    if (_obscureText2 == false) {
-                      _obscureText2 = true;
-                    } else {
-                      _obscureText2 = false;
-                    }
-                  });
-                },
-                icon: Icon(Icons.remove_red_eye_outlined)),
-          ),
-        ),
-      );
-    } else {
-      return Container(
-        alignment: Alignment.centerLeft,
-        width: MediaQuery.of(context).size.width,
-        height: 50,
-        padding: EdgeInsets.only(
-          top: 5,
-        ),
-        child: TextField(
-          obscureText: false,
-          style: GoogleFonts.roboto(
-              textStyle: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black)),
-          decoration: InputDecoration(
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(5.0)),
-            contentPadding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-          ),
-        ),
-      );
-    }
   }
 
   Container title(String label) {
@@ -189,11 +219,26 @@ class _MyWidgetState extends State<SignUpScreen> {
     );
   }
 
-  ElevatedButton registerButton(String route) {
+  ElevatedButton registerButton() {
     return ElevatedButton(
         onPressed: () {
-          Navigator.pushNamedAndRemoveUntil(
-              context, route, ModalRoute.withName('/'));
+          if (password == confirmPassword) {
+            signUp(
+                firstName + ' ' + lastName, emailAdd, password, profilePictre);
+            if (FirebaseAuth.instance.currentUser != null) {
+              Navigator.pushNamedAndRemoveUntil(
+                context,
+                '/dashboard',
+                ModalRoute.withName('/'),
+              );
+            } else {
+              Navigator.pushNamedAndRemoveUntil(
+                context,
+                '/',
+                ModalRoute.withName('/'),
+              );
+            }
+          }
         },
         style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(

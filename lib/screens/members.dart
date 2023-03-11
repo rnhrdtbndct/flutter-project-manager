@@ -25,7 +25,6 @@ class _MembersScreenState extends State<MembersScreen> {
     super.initState();
     db.collection("members").get().then(
       (querySnapshot) {
-        print("Successfully completed");
         for (var docSnapshot in querySnapshot.docs) {
           User user = User(
             id: docSnapshot.id,

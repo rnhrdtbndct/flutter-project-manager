@@ -1,3 +1,4 @@
+import 'package:benedictoflutter/services/firestore_db.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -9,6 +10,25 @@ Future signIn(String email, String password) async {
   } catch (e) {
     print(e.toString());
     return null;
+  }
+}
+
+//Sign Up New User
+Future<void> signUp(
+    String name, String email, String password, String profilePicture) async {
+  try {
+    UserCredential userCredential = await FirebaseAuth.instance
+        .createUserWithEmailAndPassword(email: email, password: password);
+    String userID = userCredential.user!.uid;
+    FirestoreDB()
+        .usersDB
+        .doc(userID)
+        .set({'name': name, 'email': email, 'photoURL': profilePicture});
+    await FirebaseAuth.instance
+        .signInWithEmailAndPassword(email: email, password: password);
+  } catch (error) {
+    // Handle errors here
+    print('Error: $error');
   }
 }
 

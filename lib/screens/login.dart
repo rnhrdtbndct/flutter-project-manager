@@ -1,6 +1,7 @@
 import 'package:benedictoflutter/screens/dashboard.dart';
 import 'package:benedictoflutter/screens/profile.dart';
 import 'package:benedictoflutter/services/auth_services.dart';
+import 'package:benedictoflutter/services/firestore_db.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -187,12 +188,22 @@ class _MyWidgetState extends State<LoginScreen> {
                             Container(
                               child: Container(
                                 padding: EdgeInsets.only(top: 15),
-                                child: Container(
-                                    width: 350,
-                                    height: 55,
-                                    padding:
-                                        EdgeInsets.only(top: 10, bottom: 10),
-                                    child: loginButton()),
+                                child: Row(
+                                  children: [
+                                    Container(
+                                        width: 175,
+                                        height: 55,
+                                        padding: EdgeInsets.only(
+                                            top: 10, bottom: 10, right: 10),
+                                        child: loginButton()),
+                                    Container(
+                                        width: 175,
+                                        height: 55,
+                                        padding: EdgeInsets.only(
+                                            top: 10, bottom: 10, left: 10),
+                                        child: registerButton('/signup')),
+                                  ],
+                                ),
                               ),
                             ),
                             Center(
@@ -253,6 +264,21 @@ class _MyWidgetState extends State<LoginScreen> {
                               child: ElevatedButton.icon(
                                 onPressed: () async {
                                   await signInWithGoogle().then((value) {
+                                    FirestoreDB()
+                                        .usersDB
+                                        .doc(FirebaseAuth
+                                            .instance.currentUser?.uid)
+                                        .set({
+                                      'name': FirebaseAuth
+                                          .instance.currentUser?.displayName
+                                          .toString(),
+                                      'email': FirebaseAuth
+                                          .instance.currentUser?.email
+                                          .toString(),
+                                      'photoURL': FirebaseAuth
+                                          .instance.currentUser?.photoURL
+                                          .toString()
+                                    });
                                     Navigator.pushNamedAndRemoveUntil(context,
                                         '/dashboard', ModalRoute.withName('/'));
                                   }).onError((error, stackTrace) => null);
@@ -334,6 +360,7 @@ class _MyWidgetState extends State<LoginScreen> {
         }
       },
       style: ElevatedButton.styleFrom(
+          side: const BorderSide(color: Color(0xFF003A6C)),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
           backgroundColor: Color(0xFF003A6C)),
