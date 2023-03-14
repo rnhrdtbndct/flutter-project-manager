@@ -47,6 +47,7 @@ dependencies:
   loading_animation_widget: ^1.2.0+4
   firebase_auth: ^4.2.10
   google_sign_in: ^6.0.2
+  auto_size_text: ^3.0.0
 
 dev_dependencies:
   flutter_test:

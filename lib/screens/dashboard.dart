@@ -1,4 +1,5 @@
 import 'package:benedictoflutter/widgets/navbar.dart';
+import 'package:benedictoflutter/widgets/project_card.dart';
 import 'package:benedictoflutter/widgets/user_card.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +20,7 @@ class DashboardScreen extends StatelessWidget {
           child: Container(
               alignment: Alignment.center,
               height: MediaQuery.of(context).size.height,
-              child: Text('Dashboard')),
+              child: ProjectCard()),
         ),
       ],
     ));

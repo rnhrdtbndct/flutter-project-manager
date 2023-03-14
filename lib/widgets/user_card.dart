@@ -7,17 +7,13 @@ class UserCard extends StatelessWidget {
   const UserCard({
     super.key,
     required this.name,
-    required this.username,
-    required this.course,
-    required this.year_level,
-    required this.imageURL,
+    required this.email,
+    required this.photoURL,
   });
 
   final String name;
-  final String username;
-  final String course;
-  final String year_level;
-  final String imageURL;
+  final String email;
+  final String photoURL;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +33,7 @@ class UserCard extends StatelessWidget {
             height: 200,
             decoration: BoxDecoration(
               image: DecorationImage(
-                  image: NetworkImage(imageURL), fit: BoxFit.cover),
+                  image: NetworkImage(photoURL), fit: BoxFit.cover),
             ),
           ),
           Container(
@@ -60,32 +56,12 @@ class UserCard extends StatelessWidget {
                 Container(
                   padding: EdgeInsets.only(left: 20),
                   child: Text(
-                    '@' + username,
+                    email,
                     style: GoogleFonts.notoSans(
                         fontSize: 15,
                         fontWeight: FontWeight.bold,
                         color: Color(0xFF003A6C)),
                   ),
-                ),
-                SizedBox(
-                  height: 50,
-                ),
-                Container(
-                  padding: EdgeInsets.only(left: 20),
-                  child: Text(
-                    year_level + ' Year',
-                    style: GoogleFonts.roboto(fontSize: 18),
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.only(left: 20),
-                  child: Text(
-                    course,
-                    style: GoogleFonts.roboto(fontSize: 18),
-                  ),
-                ),
-                SizedBox(
-                  height: 30,
                 ),
               ],
             ),

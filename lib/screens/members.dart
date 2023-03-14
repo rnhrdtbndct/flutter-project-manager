@@ -23,15 +23,14 @@ class _MembersScreenState extends State<MembersScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    db.collection("members").get().then(
+    db.collection("users").get().then(
       (querySnapshot) {
         for (var docSnapshot in querySnapshot.docs) {
           User user = User(
             id: docSnapshot.id,
             name: docSnapshot.data()['name'],
-            username: docSnapshot.data()['username'],
-            year_level: docSnapshot.data()['year_level'],
-            course: docSnapshot.data()['course'],
+            email: docSnapshot.data()['email'],
+            photoURL: docSnapshot.data()['photoURL'],
           );
         }
       },
@@ -76,18 +75,15 @@ class _MembersScreenState extends State<MembersScreen> {
                           Map<String, dynamic> data =
                               document.data()! as Map<String, dynamic>;
                           User user = User(
-                              id: document.id,
-                              name: data['name'],
-                              username: data['username'],
-                              year_level: data['year_level'],
-                              course: data['course'],
-                              imageURL: data['imageURL']);
+                            id: document.id,
+                            name: data['name'],
+                            email: data['email'],
+                            photoURL: data['photoURL'],
+                          );
                           return UserCard(
                               name: user.name,
-                              username: user.username,
-                              course: user.course,
-                              year_level: user.year_level,
-                              imageURL: user.imageURL);
+                              email: user.email,
+                              photoURL: user.photoURL);
                         }).toList());
                   },
                 )),
